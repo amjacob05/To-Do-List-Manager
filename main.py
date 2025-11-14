@@ -2,13 +2,32 @@
 # MSE121 Project: To-Do List Manager
 # Purpose: Manage a simple to-do list with add/remove/mark-done check
 
-def load_tasks():
-    """
-    Reads the tasks from a text file and returns a list of task as dictionaries.
-    Each line will be in the format: task_name|done_flag
-    Example: "Buy milk|False"
-    If the file does not exist, return an empty list.
-    """
+def load_tasks(filename):
+    tasks=[]
+    try:
+        infile=open(filename,"r")
+        for line in infile:
+            line=line.strip()
+            if line=="":
+                continue
+            parts=line.split("|")
+            name=parts[0]
+            done_string=parts[1]
+            if done_string == "True":
+                done = True
+            else:
+                done = False
+            task = {"name": name, "done": done}
+            tasks.append(task)
+        return tasks
+
+    except FileNotFoundError:
+        return []
+
+        
+
+            
+            
     pass  
 
 
